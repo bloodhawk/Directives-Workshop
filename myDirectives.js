@@ -26,15 +26,16 @@ app.directive('pendingSpinner', function(){
 
 
 var app2 = angular.module('notify', []);
-app.directive('notify', function ($q) {
+app2.directive('notify', function ($q) {
     return {
         restrict: 'AE',
         scope: {
-            title: '=title',
-            body: '=body',
-            icon: '=icon'
+            title: '=',
+            body: '=',
+            icon: '='
         },
         link: function (scope, element, attrs) {
+            console.log(scope);
             var Notification = window.Notification || window.mozNotification || window.webkitNotification;
             var getPerms = function () {
                 var defer = $q.defer();
@@ -49,7 +50,6 @@ app.directive('notify', function ($q) {
             var nBind = function(perm){
                 if (perm === "granted") {
                     element.bind('click', function () {
-                    	console.log(scope);
                         var n = new Notification(scope.title, {body: scope.body, icon: scope.icon});
                         n.onshow = function () {
                             setTimeout(function () {
