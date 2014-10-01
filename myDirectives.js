@@ -1,3 +1,6 @@
+/*--------------------pendingSpinner module--------------------*/
+
+
 var app = angular.module('pendingSpinner', []);
 app.directive('pendingSpinner', function(){
 	return {
@@ -22,18 +25,20 @@ app.directive('pendingSpinner', function(){
 	}
 });
 
-/*---------------------------------------------------*/
+     
+/*------------------------notify module---------------------------*/
 
 
 var app2 = angular.module('notify', []);
 app2.directive('notify', function ($q) {
     return {
         restrict: 'AE',
-        scope: {
+       /* scope: {   
             title: '=',
             body: '=',
             icon: '='
-        },
+        },*/
+        //works when scope is false. Two binding is not working for some reason
         link: function (scope, element, attrs) {
             console.log(scope);
             var Notification = window.Notification || window.mozNotification || window.webkitNotification;
@@ -50,6 +55,7 @@ app2.directive('notify', function ($q) {
             var nBind = function(perm){
                 if (perm === "granted") {
                     element.bind('click', function () {
+                        console.log(scope);
                         var n = new Notification(scope.title, {body: scope.body, icon: scope.icon});
                         n.onshow = function () {
                             setTimeout(function () {
