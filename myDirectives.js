@@ -30,9 +30,9 @@ app.directive('notify', function ($q) {
     return {
         restrict: 'AE',
         scope: {
-            title: '=',
-            body: '=',
-            icon: '='
+            title: '=title',
+            body: '=body',
+            icon: '=icon'
         },
         link: function (scope, element, attrs) {
             var Notification = window.Notification || window.mozNotification || window.webkitNotification;
